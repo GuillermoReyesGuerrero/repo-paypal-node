@@ -56,7 +56,7 @@ var priceshipp = 0;
 var currency = "";
 var url = "";
 var description = "";
-var orderId = 0;
+var orderId = "";
 var orderKey = "";
 
 // route to send data the server
@@ -65,7 +65,7 @@ router.post('/', (req, res) => {
 
     itemsNew = [];
     total = 0;
-    currency = 0;
+    currency = "";
     // orderId = 0;
     if(req.body.products){
         itemsNew.push(req.body.products);
@@ -143,7 +143,7 @@ router.get("/success", (req, res) => {
         transactions: [
             {
                 amount: {
-                    currency: currency,
+                    currency: currency.toString(),
                     total: ( subtotal + priceshipp ).toString()
                 },
             }
