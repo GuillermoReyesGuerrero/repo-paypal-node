@@ -56,18 +56,25 @@ var priceshipp = 0;
 var currency = "";
 var url = "";
 var description = "";
-var orderId = "";
+var orderId = 0;
 var orderKey = "";
 
 // route to send data the server
 router.post('/', (req, res) => {
     console.log(req.body);
 
+    // volvemos a inicializar los valores
     itemsNew = [];
-    total = 0;
+    subtotal = 0;
+    priceshipp = 0;
     currency = "";
-    // orderId = 0;
+    url = "";
+    description = "";
+    orderId = 0;
+    orderKey = "";
+
     if(req.body.products){
+
         itemsNew.push(req.body.products);
         subtotal = req.body.priceTotal;
         priceshipp  = req.body.priceShipping;
@@ -79,8 +86,11 @@ router.post('/', (req, res) => {
         res.status(200).json({
             message: 'Successfull'
         });
+
     }else{
+
         res.redirect("/failed");
+
     } 
 });
 
@@ -143,7 +153,7 @@ router.get("/success", (req, res) => {
         transactions: [
             {
                 amount: {
-                    currency: currency.toString(),
+                    currency: currency,
                     total: ( subtotal + priceshipp ).toString()
                 },
             }
